@@ -55,7 +55,7 @@ def func_target3(x):
   print(x)
 
 # questo
-func_target3 = require_role_permission3(func_target3)("sottrai")
+func_target3 = require_role_permission3(func_target3)("aggiungi")
 func_target3(1)
 
 
@@ -74,8 +74,56 @@ def require_role_permission4(func):
     return inner
   return outer
 
-@require_role_permission4("sottrai")
+@require_role_permission4("aggiungi")
 def func_target4(x):
   print(x)
 
 func_target4(1)
+
+
+# *******************
+# v3.1
+# *******************
+
+
+def require_role_permission5(param):
+  def outer(func):  
+    def inner(x):
+      if param == "aggiungi":
+        func(x+1)
+      elif param == "sottrai":
+        func(x-1)
+    return inner
+  return outer
+
+def func_target5(x):
+  print(x)
+
+func_target5 = require_role_permission5("aggiungi")(func_target5)
+func_target5(1)
+
+
+
+# *******************
+# v3.2
+# *******************
+
+def require_role_permission6(param):
+  def outer(func):  
+    def inner(x):
+      if param == "aggiungi":
+        func(x+1)
+      elif param == "sottrai":
+        func(x-1)
+    return inner
+  return outer
+
+
+@require_role_permission6("aggiungi")
+def func_target6(x):
+  print(x)
+
+
+func_target6(1)
+
+
