@@ -1,5 +1,5 @@
 """
-
+(this works, it can be used)
 Design pattern: 
 "The Function Manager with raised exceptions 
 bubbling up to the parent function"
