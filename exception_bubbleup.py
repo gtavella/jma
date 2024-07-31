@@ -1,5 +1,5 @@
 """
-(this works, it can be used)
+
 Design pattern: 
 "The Function Manager with raised exceptions 
 bubbling up to the parent function"
@@ -38,6 +38,7 @@ import traceback
 
 ctx = {
   "parent_passed": False,
+  "reached_end": False,
   "msg_errors": [],
   "ctx_errors": []
 }
@@ -46,6 +47,13 @@ ctx = {
 
 def func_manager(curr_func):
   def new_curr_func(ctx, *args, **kwargs):
+    
+      if ctx["reached_end"]:
+        ctx["parent_passed"] = False
+        ctx["msg_errors"] = []
+        ctx["ctx_errors"] = []
+        ctx["reached_end"] = False
+        
       msgerr = None
       ctxerr = None
       # this is local, is reset for each function frame
@@ -83,7 +91,9 @@ def func_manager(curr_func):
           if msgerr is not None:
             ctx["msg_errors"].append(msgerr)
             ctx["ctx_errors"].append(ctxerr)
+            
           print("first (parent):", curr_func.__name__)
+          ctx["reached_end"] = True
         # this is for all children functions
         else:
           # print("last child:", curr_func.__name__)
@@ -112,6 +122,7 @@ def child2(ctx):
 def child3(ctx):
   print("in child 3")
   # raise Exception("exception in child3")
+  make_bug(ctx)
   child4(ctx)
 
 
@@ -119,7 +130,6 @@ def child3(ctx):
 def child4(ctx):
   print("in child 4")
   # raise Exception("exception in child4")  
-  make_bug(ctx)
   child5(ctx)
 
 
@@ -129,11 +139,42 @@ def child5(ctx):
   # raise Exception("exception in child5")
 
 
+
 def make_bug(ctx):
   # oopss!!
   1/0
 
 
-child1(ctx)
 
-print(ctx)
+
+def do_something1():
+  print("start doing something 1")
+  
+  child1(ctx)
+  
+  if len(ctx["msg_errors"]) > 0:
+    print("there were some errors in do something 1")
+    print(ctx)
+    return
+
+  print("no error in do something 1, congrats!")
+
+
+
+
+def do_something2():
+  print("start doing something 2")
+
+  child4(ctx)
+
+  if len(ctx["msg_errors"]) > 0:
+    print("there were some errors in do something 2")
+    print(ctx)
+    return
+
+  print("no error in do something 2, congrats!")
+
+
+do_something1()
+print()
+do_something2()
