@@ -34,7 +34,6 @@ on weird internal state mechanisms or complicated logic.
 # truly interrupt the program flow
 
 
-
 class ExitCurrFn(Exception):
   def __init__(self, msg=None) -> None:
     if msg is None:
@@ -82,8 +81,6 @@ class Listener:
     self._exitcurrfn = False
     self._exitmasterfn = False
     self._master_passed = False
-    # the master function
-    self._masterfunc = None
 
   # exit current func
 
@@ -124,9 +121,6 @@ class Listener:
           is_this_master = True
           # as long as the program lives 
           self._master_passed = True
-
-          # save the master
-          self._masterfunc = func
         
       try:
         func(*args, **kw)
