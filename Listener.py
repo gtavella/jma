@@ -82,6 +82,8 @@ class Listener:
     self._exitcurrfn = False
     self._exitmasterfn = False
     self._master_passed = False
+    # the master function
+    self._masterfunc = None
 
   # exit current func
 
@@ -122,6 +124,9 @@ class Listener:
           is_this_master = True
           # as long as the program lives 
           self._master_passed = True
+
+          # save the master
+          self._masterfunc = func
         
       try:
         func(*args, **kw)
@@ -170,8 +175,8 @@ def dosomething1():
 @listen.on
 def dosomething2():
   print("start do something 2")
-  dosomething3()
   # listen.exitmasterfn = True
+  dosomething3()
   # listen.exitcurrfn = True
   print("should not be reached in do something 2")
 
@@ -181,9 +186,17 @@ def dosomething2():
 def dosomething3():
   print("start do something 3")
   listen.exitmasterfn = True
-  # listen.exitcurrfn = True
+  listen.exitcurrfn = True
   print("should not be reached in do something 3")
 
+# be careful when applying 
+# listen.exitcurrfn = True
+# to a function that is not being listened to
+# in the sense, where there's not @listen.on
+# if you apply listen.exitcurrfn = True
+# on such an undecorated function, 
+# the last decorated function will be 
+# considered as the current on
 
 
 
