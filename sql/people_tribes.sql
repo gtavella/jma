@@ -40,7 +40,10 @@ VALUES
 ('Riccardo'),
 ('Giovanni'),
 ('Francesco'),
-('Maria Angela');
+('Maria Angela'),
+('Galadriel'),
+('Elinor');
+
 
 -- add tribes
 INSERT INTO tribes
@@ -52,7 +55,10 @@ VALUES
 ('Bruzi'),
 ('Occitani'),
 ('Franchi'),
-('Sassoni');
+('Sassoni'),
+('Iberici'),
+('Romani'),
+('Galli');
 
 
 -- add members 
