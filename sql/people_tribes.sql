@@ -27,3 +27,30 @@ CREATE TABLE people_tribes (
     -- associated to that tribe
     FOREIGN KEY (tribe_id) REFERENCES tribes(id) ON DELETE CASCADE
 );
+
+
+-- add people
+INSERT INTO people
+(name)
+VALUES
+('Giuseppe'),
+('Adriana'),
+('Dalia'),
+('Armando'),
+('Riccardo'),
+('Giovanni'),
+('Francesco'),
+('Maria Angela');
+
+-- add tribes
+INSERT INTO tribes
+(name)
+VALUES
+('Micenei'),
+('Sumeri'),
+('Etruschi'),
+('Bruzi'),
+('Occitani'),
+('Franchi'),
+('Sassoni');
+
