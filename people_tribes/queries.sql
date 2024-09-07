@@ -96,6 +96,5 @@ LEFT JOIN people_tribes ppltr ON
     -- if there's no matching tribe_id in the people_tribes
     -- when matched against all tribes
 	tr.id = ppltr.tribe_id
-GROUP BY tribe
-ORDER BY tot DESC;
+GROUP BY tribe;
 
