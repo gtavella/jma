@@ -1,7 +1,7 @@
 -- TASK 1: for all tribes, get the tribe name, and all names of people in this tribe
 
 -- SOLUTION 1.A
-/*
+
 SELECT 
 	   tr.name AS tribe_name, 
 	   ppl.name AS person_name
@@ -13,7 +13,7 @@ INNER JOIN people_tribes ppltr ON
 INNER JOIN people ppl ON 
 	-- all people 
 	ppl.id = ppltr.person_id;
-*/
+
 
 
 -- TASK 2: find people who are not in a tribe
@@ -23,7 +23,7 @@ INNER JOIN people ppl ON
 -- 3. substract 2. from 1.
 
 -- SOLUTION A
-/*
+
 SELECT name
 FROM people
 WHERE id NOT IN
@@ -38,10 +38,10 @@ WHERE id NOT IN
     	GROUP BY person_id
     	HAVING n_tribes > 0) AS t
  );
- */
+ 
  
  -- SOLUTION B
-/*
+
 SELECT 
 	name
 FROM (
@@ -58,7 +58,7 @@ FROM (
 -- who don't have a match in the people_members,
 -- so people that don't belong to any tribe
 WHERE all_ppl.person_id IS NULL;
-*/
+
 
 
 -- SOLUTION C
